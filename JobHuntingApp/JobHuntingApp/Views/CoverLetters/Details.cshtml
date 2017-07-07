@@ -1,0 +1,30 @@
+@model JobHuntingApp.Models.CoverLetter
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CoverLetter</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.JobID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JobID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CoverLetterText)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CoverLetterText)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.CoverLetterID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

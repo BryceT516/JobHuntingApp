@@ -1,0 +1,36 @@
+@model JobHuntingApp.Models.Application
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Application</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.JobID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JobID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationSubmitted)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationSubmitted)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApplicationMethod)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ApplicationMethod)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ApplicationID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

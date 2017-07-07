@@ -1,0 +1,71 @@
+@model JobHuntingApp.Models.JobOpening
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>JobOpening</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <input type="hidden" asp-for="JobOpeningID" />
+        <dt>
+            @Html.DisplayNameFor(model => model.CompanyID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CompanyID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.JobOpeningTitle)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JobOpeningTitle)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.JobOpeningRecorded)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JobOpeningRecorded)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.JobOpeningSource)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JobOpeningSource)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.JobOpeningUrl)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JobOpeningUrl)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.JobOpeningDescription)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JobOpeningDescription)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.JobOpeningNotes)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JobOpeningNotes)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.JobOpeningActive)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JobOpeningActive)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </form>
+</div>

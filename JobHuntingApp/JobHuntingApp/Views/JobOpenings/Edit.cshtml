@@ -1,0 +1,86 @@
+@model JobHuntingApp.Models.JobOpening
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<form asp-action="Edit">
+    <div class="form-horizontal">
+        <h4>JobOpening</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="JobOpeningID" />
+        <div class="form-group">
+            <label asp-for="CompanyID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="CompanyID" class="form-control" />
+                <span asp-validation-for="CompanyID" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="JobOpeningTitle" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="JobOpeningTitle" class="form-control" />
+                <span asp-validation-for="JobOpeningTitle" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="JobOpeningRecorded" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="JobOpeningRecorded" class="form-control" />
+                <span asp-validation-for="JobOpeningRecorded" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="JobOpeningSource" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="JobOpeningSource" class="form-control" />
+                <span asp-validation-for="JobOpeningSource" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="JobOpeningUrl" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="JobOpeningUrl" class="form-control" />
+                <span asp-validation-for="JobOpeningUrl" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="JobOpeningDescription" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="JobOpeningDescription" class="form-control" />
+                <span asp-validation-for="JobOpeningDescription" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="JobOpeningNotes" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="JobOpeningNotes" class="form-control" />
+                <span asp-validation-for="JobOpeningNotes" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <div class="checkbox">
+                    <input asp-for="JobOpeningActive" />
+                    <label asp-for="JobOpeningActive"></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

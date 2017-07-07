@@ -4,12 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
-namespace JobHuntingApp.Models
+namespace JobHuntingApp.ViewModels
 {
-    public class JobOpening
+    public class AddJobOpeningViewModel
     {
-        public int JobOpeningID { get; set; }
         public int CompanyID { get; set; }
+        public string CompanyName { get; set; }
+        public string CompanyUrl { get; set; }
+
         public string JobOpeningTitle { get; set; }
         public DateTime JobOpeningRecorded { get; set; }
         public string JobOpeningSource { get; set; }

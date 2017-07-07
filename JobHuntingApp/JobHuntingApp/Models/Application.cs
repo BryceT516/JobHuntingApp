@@ -14,9 +14,9 @@ namespace JobHuntingApp.Models
 
     public class Application
     {
-        public int ID { get; set; }
+        public int ApplicationID { get; set; }
         public int JobID { get; set; }
-        public DateTime Submitted { get; set; }
+        public DateTime ApplicationSubmitted { get; set; }
         public ApplicationMethod ApplicationMethod { get; set; }
     }
 }

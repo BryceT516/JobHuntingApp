@@ -8,13 +8,14 @@ namespace JobHuntingApp.Models
 {
     public class Person
     {
-        public int ID { get; set; }
+        public int PersonID { get; set; }
         public int CompanyID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
-        [MaxLength]
+        public string LinkedIn { get; set; }
+        [MaxLength(5000)]
         public string Notes { get; set; }
     }
 }

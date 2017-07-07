@@ -6,13 +6,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace JobHuntingApp.Models
 {
-    public class Company
+    public class Idea
     {
+        public int IdeaID { get; set; }
         public int CompanyID { get; set; }
-        public string CompanyName { get; set; }
-        public string CompanyUrl { get; set; }
         [MaxLength(5000)]
-        public string CompanyNotes { get; set; }
-        public bool CompanyActive { get; set; }
+        public string IdeaNote { get; set; }
+        public DateTime IdeaCreated { get; set; }
+        public DateTime IdeaModified { get; set; }
     }
 }
