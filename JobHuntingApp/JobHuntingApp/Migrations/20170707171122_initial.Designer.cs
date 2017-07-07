@@ -9,8 +9,8 @@ using JobHuntingApp.Models;
 namespace JobHuntingApp.Migrations
 {
     [DbContext(typeof(JobHuntContext))]
-    [Migration("20170707013343_Initial")]
-    partial class Initial
+    [Migration("20170707171122_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -87,6 +87,28 @@ namespace JobHuntingApp.Migrations
                     b.HasKey("CoverLetterID");
 
                     b.ToTable("CoverLetters");
+                });
+
+            modelBuilder.Entity("JobHuntingApp.Models.HistoryItem", b =>
+                {
+                    b.Property<int>("HistoryItemID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CompanyID");
+
+                    b.Property<DateTime>("HistoryItemCreated");
+
+                    b.Property<DateTime>("HistoryItemDate");
+
+                    b.Property<string>("HistoryItemEvent");
+
+                    b.Property<string>("HistoryItemText");
+
+                    b.Property<int>("JobID");
+
+                    b.HasKey("HistoryItemID");
+
+                    b.ToTable("HistoryItems");
                 });
 
             modelBuilder.Entity("JobHuntingApp.Models.Idea", b =>

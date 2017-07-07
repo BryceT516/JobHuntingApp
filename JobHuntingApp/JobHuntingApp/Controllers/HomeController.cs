@@ -33,12 +33,14 @@ namespace JobHuntingApp.Controllers
                                        JobOpeningTitle = jobOpenings.JobOpeningTitle,
                                        CompanyName = g1.CompanyName,
                                        CompanyID = g1.CompanyID,
+                                       CompanyNotes = g1.CompanyNotes,
+                                       CompanyUrl = g1.CompanyUrl,
                                        JobOpeningID = jobOpenings.JobOpeningID,
                                        JobOpeningDescription = jobOpenings.JobOpeningDescription,
                                        JobOpeningNotes = jobOpenings.JobOpeningNotes,
                                        JobOpeningRecorded = jobOpenings.JobOpeningRecorded,
                                        JobOpeningSource = jobOpenings.JobOpeningSource,
-                                       JobOpeningUrl = jobOpenings.JobOpeningUrl
+                                       JobOpeningUrl = jobOpenings.JobOpeningUrl                                       
                                    }).ToList();
 
             ViewData["People"] = _context.People.ToList();

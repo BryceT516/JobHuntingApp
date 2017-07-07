@@ -88,6 +88,28 @@ namespace JobHuntingApp.Migrations
                     b.ToTable("CoverLetters");
                 });
 
+            modelBuilder.Entity("JobHuntingApp.Models.HistoryItem", b =>
+                {
+                    b.Property<int>("HistoryItemID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CompanyID");
+
+                    b.Property<DateTime>("HistoryItemCreated");
+
+                    b.Property<DateTime>("HistoryItemDate");
+
+                    b.Property<string>("HistoryItemEvent");
+
+                    b.Property<string>("HistoryItemText");
+
+                    b.Property<int>("JobID");
+
+                    b.HasKey("HistoryItemID");
+
+                    b.ToTable("HistoryItems");
+                });
+
             modelBuilder.Entity("JobHuntingApp.Models.Idea", b =>
                 {
                     b.Property<int>("IdeaID")

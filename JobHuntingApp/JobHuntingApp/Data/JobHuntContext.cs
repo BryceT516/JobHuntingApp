@@ -22,6 +22,7 @@ namespace JobHuntingApp.Data
         public DbSet<Interview> Interviews { get; set; }
         public DbSet<CoverLetter> CoverLetters { get; set; }
         public DbSet<ContactRecord> ContactRecords { get; set; }
+        public DbSet<HistoryItem> HistoryItems { get; set; }
                     
     }
     

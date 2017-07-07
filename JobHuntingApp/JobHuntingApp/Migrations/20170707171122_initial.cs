@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace JobHuntingApp.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -69,6 +69,24 @@ namespace JobHuntingApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CoverLetters", x => x.CoverLetterID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "HistoryItems",
+                columns: table => new
+                {
+                    HistoryItemID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CompanyID = table.Column<int>(nullable: false),
+                    HistoryItemCreated = table.Column<DateTime>(nullable: false),
+                    HistoryItemDate = table.Column<DateTime>(nullable: false),
+                    HistoryItemEvent = table.Column<string>(nullable: true),
+                    HistoryItemText = table.Column<string>(nullable: true),
+                    JobID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HistoryItems", x => x.HistoryItemID);
                 });
 
             migrationBuilder.CreateTable(
@@ -175,6 +193,9 @@ namespace JobHuntingApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "CoverLetters");
+
+            migrationBuilder.DropTable(
+                name: "HistoryItems");
 
             migrationBuilder.DropTable(
                 name: "Ideas");

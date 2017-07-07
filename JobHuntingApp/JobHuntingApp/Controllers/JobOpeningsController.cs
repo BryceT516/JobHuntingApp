@@ -57,10 +57,12 @@ namespace JobHuntingApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CompanyName, CompanyID, CompanyURL, JobOpeningTitle,JobOpeningRecorded,JobOpeningSource,JobOpeningUrl,JobOpeningDescription,JobOpeningNotes,JobOpeningActive")] AddJobOpeningViewModel jobOpening)
+        public async Task<IActionResult> Create([Bind("CompanyName, CompanyID, CompanyUrl, JobOpeningTitle,JobOpeningRecorded,JobOpeningSource,JobOpeningUrl,JobOpeningDescription,JobOpeningNotes,JobOpeningActive")] AddJobOpeningViewModel jobOpening)
         {
             if (ModelState.IsValid)
             {
+                HistoryItem tempHistoryItem;
+
                 Company newCompany;
                 if (jobOpening.CompanyName != "")
                 {
@@ -74,6 +76,17 @@ namespace JobHuntingApp.Controllers
                     await _context.SaveChangesAsync();
                     //Get the company ID
                     await _context.Entry(newCompany).GetDatabaseValuesAsync();
+                    //Update the historyitem
+                    tempHistoryItem = new HistoryItem() {
+                        HistoryItemCreated = DateTime.Now,
+                        HistoryItemDate = DateTime.Now,
+                        HistoryItemEvent = "Company Created",
+                        CompanyID = newCompany.CompanyID,
+                        HistoryItemText = newCompany.CompanyName + " was added."
+                    };
+                    _context.HistoryItems.Add(tempHistoryItem);
+                    await _context.SaveChangesAsync();
+                    
                 }
                 else
                 {
@@ -94,6 +107,19 @@ namespace JobHuntingApp.Controllers
                     JobOpeningActive = true
                 };
                 _context.Add(newJobOpening);
+                await _context.SaveChangesAsync();
+                //Get the job ID
+                await _context.Entry(newJobOpening).GetDatabaseValuesAsync();
+                //Create historical item
+                tempHistoryItem = new HistoryItem()
+                {
+                    HistoryItemCreated = DateTime.Now,
+                    HistoryItemDate = DateTime.Now,
+                    HistoryItemEvent = "Job Opening Created",
+                    JobID = newJobOpening.JobOpeningID,
+                    HistoryItemText = ""
+                };
+                _context.HistoryItems.Add(tempHistoryItem);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
