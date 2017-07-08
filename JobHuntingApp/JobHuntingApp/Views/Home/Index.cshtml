@@ -150,10 +150,10 @@
                         <h4 class="modal-title">Cover Letter for @listing.JobOpeningTitle</h4>
                     </div>
                     <div class="modal-body">
-                        <input type="hidden" name=@string.Format("clJobID{0}", listing.JobOpeningID) value="@listing.JobOpeningID" />
+                        <input type="hidden" name=@string.Format("clJobID{0}", listing.JobOpeningID) id=@string.Format("clJobID{0}", listing.JobOpeningID) value="@listing.JobOpeningID" />
 
                         @{  List<CoverLetter> coverLetterList = (List<CoverLetter>)ViewData["CoverLetters"]; }
-                        <textarea name="coverLetterTextInput" id="coverLetterTextInput" class="form-control" style="min-width: 100%" rows="30">
+                        <textarea name="coverLetterTextInput" id="coverLetterTextInput" class="form-control" style="min-width: 100%; min-height: 400px">
                             @if (coverLetterList.SingleOrDefault(x => x.JobID == listing.JobOpeningID) != null)
                             {
                                 @coverLetterList.SingleOrDefault(x => x.JobID == listing.JobOpeningID).CoverLetterText

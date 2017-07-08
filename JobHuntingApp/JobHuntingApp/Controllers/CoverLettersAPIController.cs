@@ -90,8 +90,17 @@ namespace JobHuntingApp.Controllers
             {
                 return BadRequest(ModelState);
             }
-
-            _context.CoverLetters.Add(coverLetter);
+            if(_context.CoverLetters.Any(x => x.JobID == coverLetter.JobID))
+            {
+                //Update instead of add.
+                var newCoverLetter = _context.CoverLetters.SingleOrDefault(x => x.JobID == coverLetter.JobID);
+                newCoverLetter.CoverLetterText = coverLetter.CoverLetterText;
+            }
+            else
+            {
+                _context.CoverLetters.Add(coverLetter);
+            }
+            
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetCoverLetter", new { id = coverLetter.CoverLetterID }, coverLetter);
