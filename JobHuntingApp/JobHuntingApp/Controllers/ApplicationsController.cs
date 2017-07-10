@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using JobHuntingApp.Data;
@@ -10,19 +12,31 @@ using JobHuntingApp.Models;
 
 namespace JobHuntingApp.Controllers
 {
+    [Authorize]
     public class ApplicationsController : Controller
     {
         private readonly JobHuntContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public ApplicationsController(JobHuntContext context)
+        public ApplicationsController(JobHuntContext context, UserManager<ApplicationUser> userManager,
+          SignInManager<ApplicationUser> signInManager)
         {
-            _context = context;    
+            _context = context;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         // GET: Applications
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Applications.ToListAsync());
+            var user = await GetCurrentUserAsync();
+            if (user == null)
+            {
+                return View("Error");
+            }
+
+            return View(await _context.Applications.Where(x => x.UserID == user.Id).ToListAsync());
         }
 
         // GET: Applications/Details/5
@@ -56,8 +70,15 @@ namespace JobHuntingApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ApplicationID,JobID,ApplicationSubmitted,ApplicationMethod")] Application application)
         {
+            var user = await GetCurrentUserAsync();
+            if (user == null)
+            {
+                return View("Error");
+            }
+
             if (ModelState.IsValid)
             {
+                application.UserID = user.Id;
                 _context.Add(application);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -88,6 +109,12 @@ namespace JobHuntingApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ApplicationID,JobID,ApplicationSubmitted,ApplicationMethod")] Application application)
         {
+            var user = await GetCurrentUserAsync();
+            if (user == null)
+            {
+                return View("Error");
+            }
+
             if (id != application.ApplicationID)
             {
                 return NotFound();
@@ -97,6 +124,7 @@ namespace JobHuntingApp.Controllers
             {
                 try
                 {
+                    application.UserID = user.Id;
                     _context.Update(application);
                     await _context.SaveChangesAsync();
                 }
@@ -149,5 +177,12 @@ namespace JobHuntingApp.Controllers
         {
             return _context.Applications.Any(e => e.ApplicationID == id);
         }
+
+        private Task<ApplicationUser> GetCurrentUserAsync()
+        {
+            return _userManager.GetUserAsync(HttpContext.User);
+        }
+
+
     }
 }

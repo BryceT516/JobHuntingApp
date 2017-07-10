@@ -15,5 +15,7 @@ namespace JobHuntingApp.Models
         public DateTime TaskCompleted { get; set; }
         [MaxLength(5000)]
         public string TaskNotes { get; set; }
+        [StringLength(450)]
+        public string UserID { get; set; }
     }
 }

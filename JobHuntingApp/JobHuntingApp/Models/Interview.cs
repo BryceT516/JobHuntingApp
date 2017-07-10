@@ -17,5 +17,7 @@ namespace JobHuntingApp.Models
         public bool ThankYouNote { get; set; }
         public bool FollowUp { get; set; }
         public bool CallBack { get; set; }
+        [StringLength(450)]
+        public string UserID { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace JobHuntingApp.Models
 {
@@ -14,6 +15,8 @@ namespace JobHuntingApp.Models
         public string HistoryItemText { get; set; }
         public DateTime HistoryItemCreated { get; set; }
         public DateTime HistoryItemDate { get; set; }
-        
+        [StringLength(450)]
+        public string UserID { get; set; }
+
     }
 }

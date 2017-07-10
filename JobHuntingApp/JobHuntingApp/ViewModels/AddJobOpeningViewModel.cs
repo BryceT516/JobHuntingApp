@@ -21,5 +21,7 @@ namespace JobHuntingApp.ViewModels
         [MaxLength(5000)]
         public string JobOpeningNotes { get; set; }
         public bool JobOpeningActive { get; set; }
+        [StringLength(450)]
+        public string UserID { get; set; }
     }
 }

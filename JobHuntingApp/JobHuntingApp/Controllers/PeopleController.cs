@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using JobHuntingApp.Data;
@@ -10,31 +12,44 @@ using JobHuntingApp.Models;
 
 namespace JobHuntingApp.Controllers
 {
+    [Authorize]
     public class PeopleController : Controller
     {
         private readonly JobHuntContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public PeopleController(JobHuntContext context)
+
+        public PeopleController(JobHuntContext context, UserManager<ApplicationUser> userManager,
+          SignInManager<ApplicationUser> signInManager)
         {
-            _context = context;    
+            _context = context;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         // GET: People
         public async Task<IActionResult> Index()
         {
-            return View(await _context.People.ToListAsync());
+            var user = await GetCurrentUserAsync();
+            if(user == null)
+            {
+                return View("Error");
+            }
+
+            return View(await _context.People.Where(x=> x.UserID == user.Id).ToListAsync());
         }
 
         // GET: People/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
+            var user = await GetCurrentUserAsync();
+            if (user == null)
             {
-                return NotFound();
+                return View("Error");
             }
 
-            var person = await _context.People
-                .SingleOrDefaultAsync(m => m.PersonID == id);
+            var person = await _context.People.SingleOrDefaultAsync(m => m.PersonID == id);
             if (person == null)
             {
                 return NotFound();
@@ -44,8 +59,15 @@ namespace JobHuntingApp.Controllers
         }
 
         // GET: People/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var user = await GetCurrentUserAsync();
+            if (user == null)
+            {
+                return View("Error");
+            }
+
+            ViewData["companyList"] = _context.Companies.Where(c => c.UserID == user.Id).ToList();
             return View();
         }
 
@@ -56,8 +78,15 @@ namespace JobHuntingApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("PersonID,CompanyID,FirstName,LastName,Phone,Email,LinkedIn,Notes")] Person person)
         {
+            var user = await GetCurrentUserAsync();
+            if (user == null)
+            {
+                return View("Error");
+            }
+
             if (ModelState.IsValid)
             {
+                person.UserID = user.Id;
                 _context.Add(person);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -88,6 +117,12 @@ namespace JobHuntingApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("PersonID,CompanyID,FirstName,LastName,Phone,Email,LinkedIn,Notes")] Person person)
         {
+            var user = await GetCurrentUserAsync();
+            if (user == null)
+            {
+                return View("Error");
+            }
+
             if (id != person.PersonID)
             {
                 return NotFound();
@@ -97,6 +132,7 @@ namespace JobHuntingApp.Controllers
             {
                 try
                 {
+                    person.UserID = user.Id;
                     _context.Update(person);
                     await _context.SaveChangesAsync();
                 }
@@ -149,5 +185,11 @@ namespace JobHuntingApp.Controllers
         {
             return _context.People.Any(e => e.PersonID == id);
         }
+
+        private Task<ApplicationUser> GetCurrentUserAsync()
+        {
+            return _userManager.GetUserAsync(HttpContext.User);
+        }
+
     }
 }

@@ -32,10 +32,17 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Companies" asp-action="Index">Companies</a></li>
-                    <li><a asp-area="" asp-controller="JobOpenings" asp-action="Index">Openings</a></li>
-                    <li><a asp-area="" asp-controller="People" asp-action="Index">People</a></li>
-                    <li><a asp-area="" asp-controller="CoverLetters" asp-action="Index">CoverLetters</a></li>
+                    @inject SignInManager<ApplicationUser> SignInManager
+
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <li><a asp-area="" asp-controller="Companies" asp-action="Index">Companies</a></li>
+                        <li><a asp-area="" asp-controller="JobOpenings" asp-action="Index">Openings</a></li>
+                        <li><a asp-area="" asp-controller="People" asp-action="Index">People</a></li>
+                        <li><a asp-area="" asp-controller="CoverLetters" asp-action="Index">CoverLetters</a></li>
+                        <li><a asp-area="" asp-controller="Applications" asp-action="Index">Applications</a></li>
+                    }
+                    
 
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")

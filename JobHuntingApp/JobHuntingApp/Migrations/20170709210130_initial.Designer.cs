@@ -9,7 +9,7 @@ using JobHuntingApp.Models;
 namespace JobHuntingApp.Migrations
 {
     [DbContext(typeof(JobHuntContext))]
-    [Migration("20170707171122_initial")]
+    [Migration("20170709210130_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,6 +29,9 @@ namespace JobHuntingApp.Migrations
 
                     b.Property<int>("JobID");
 
+                    b.Property<string>("UserID")
+                        .HasMaxLength(450);
+
                     b.HasKey("ApplicationID");
 
                     b.ToTable("Applications");
@@ -47,6 +50,9 @@ namespace JobHuntingApp.Migrations
                         .HasMaxLength(5000);
 
                     b.Property<string>("CompanyUrl");
+
+                    b.Property<string>("UserID")
+                        .HasMaxLength(450);
 
                     b.HasKey("CompanyID");
 
@@ -69,6 +75,9 @@ namespace JobHuntingApp.Migrations
 
                     b.Property<int>("ContactType");
 
+                    b.Property<string>("UserID")
+                        .HasMaxLength(450);
+
                     b.HasKey("ContactRecordID");
 
                     b.ToTable("ContactRecords");
@@ -83,6 +92,9 @@ namespace JobHuntingApp.Migrations
                         .HasMaxLength(5000);
 
                     b.Property<int>("JobID");
+
+                    b.Property<string>("UserID")
+                        .HasMaxLength(450);
 
                     b.HasKey("CoverLetterID");
 
@@ -106,6 +118,9 @@ namespace JobHuntingApp.Migrations
 
                     b.Property<int>("JobID");
 
+                    b.Property<string>("UserID")
+                        .HasMaxLength(450);
+
                     b.HasKey("HistoryItemID");
 
                     b.ToTable("HistoryItems");
@@ -124,6 +139,9 @@ namespace JobHuntingApp.Migrations
 
                     b.Property<string>("IdeaNote")
                         .HasMaxLength(5000);
+
+                    b.Property<string>("UserID")
+                        .HasMaxLength(450);
 
                     b.HasKey("IdeaID");
 
@@ -149,6 +167,9 @@ namespace JobHuntingApp.Migrations
                     b.Property<bool>("ThankYouEmail");
 
                     b.Property<bool>("ThankYouNote");
+
+                    b.Property<string>("UserID")
+                        .HasMaxLength(450);
 
                     b.HasKey("InterviewID");
 
@@ -178,6 +199,9 @@ namespace JobHuntingApp.Migrations
 
                     b.Property<string>("JobOpeningUrl");
 
+                    b.Property<string>("UserID")
+                        .HasMaxLength(450);
+
                     b.HasKey("JobOpeningID");
 
                     b.ToTable("JobOpenings");
@@ -203,6 +227,9 @@ namespace JobHuntingApp.Migrations
 
                     b.Property<string>("Phone");
 
+                    b.Property<string>("UserID")
+                        .HasMaxLength(450);
+
                     b.HasKey("PersonID");
 
                     b.ToTable("People");
@@ -221,6 +248,9 @@ namespace JobHuntingApp.Migrations
                         .HasMaxLength(5000);
 
                     b.Property<string>("TaskText");
+
+                    b.Property<string>("UserID")
+                        .HasMaxLength(450);
 
                     b.HasKey("TaskID");
 

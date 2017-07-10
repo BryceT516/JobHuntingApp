@@ -12,5 +12,7 @@ namespace JobHuntingApp.Models
         public int JobID { get; set; }
         [MaxLength(5000)]
         public string CoverLetterText { get; set; }
+        [StringLength(450)]
+        public string UserID { get; set; }
     }
 }

@@ -20,6 +20,9 @@ namespace JobHuntingApp.ViewModels
         [MaxLength(5000)]
         public string JobOpeningNotes { get; set; }
 
+        [StringLength(450)]
+        public string UserID { get; set; }
+
         //Company
         public int CompanyID { get; set; }
         public string CompanyName { get; set; }

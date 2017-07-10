@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,17 +17,28 @@ namespace JobHuntingApp.Controllers
     public class CoverLettersAPIController : Controller
     {
         private readonly JobHuntContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public CoverLettersAPIController(JobHuntContext context)
+        public CoverLettersAPIController(JobHuntContext context, UserManager<ApplicationUser> userManager,
+          SignInManager<ApplicationUser> signInManager)
         {
             _context = context;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         // GET: api/CoverLettersAPI
         [HttpGet]
-        public IEnumerable<CoverLetter> GetCoverLetters()
+        public async Task<IEnumerable<CoverLetter>> GetCoverLetters()
         {
-            return _context.CoverLetters;
+            var user = await GetCurrentUserAsync();
+            if (user == null)
+            {
+                return null;
+            }
+
+            return _context.CoverLetters.Where(x => x.UserID == user.Id);
         }
 
         // GET: api/CoverLettersAPI/5
@@ -86,6 +99,12 @@ namespace JobHuntingApp.Controllers
         [HttpPost]
         public async Task<IActionResult> PostCoverLetter([FromBody] CoverLetter coverLetter)
         {
+            var user = await GetCurrentUserAsync();
+            if (user == null)
+            {
+                return null;
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -98,6 +117,7 @@ namespace JobHuntingApp.Controllers
             }
             else
             {
+                coverLetter.UserID = user.Id;
                 _context.CoverLetters.Add(coverLetter);
             }
             
@@ -131,5 +151,13 @@ namespace JobHuntingApp.Controllers
         {
             return _context.CoverLetters.Any(e => e.CoverLetterID == id);
         }
+
+
+        private Task<ApplicationUser> GetCurrentUserAsync()
+        {
+            return _userManager.GetUserAsync(HttpContext.User);
+        }
+
+
     }
 }

@@ -14,5 +14,7 @@ namespace JobHuntingApp.Models
         [MaxLength(5000)]
         public string CompanyNotes { get; set; }
         public bool CompanyActive { get; set; }
+        [StringLength(450)]
+        public string UserID { get; set; }
     }
 }

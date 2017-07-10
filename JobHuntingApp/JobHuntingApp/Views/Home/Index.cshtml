@@ -5,170 +5,214 @@
     var PeopleList = ViewData["People"] as List<JobHuntingApp.Models.Person>;
 }
 
+<script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=bsb5d78ljlux801o8brxchv9rap7jinay2rp3fdmxhyqriq1"></script>
+<script src="~/js/tinyMCE-Config.js"></script>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10">
 
-<div id="accordion" class="panel-group">
-    @foreach (JobHuntingApp.ViewModels.DashboardViewModel listing in Model)
-    {
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href=@string.Format("#collapse{0}", listing.JobOpeningID)>
-                        @listing.JobOpeningTitle
-                    </a>
-                    | @listing.CompanyName | <span class="pull-right">Next Action | Record Contact</span>
-                </h4>
-            </div>
-            <div id=@string.Format("collapse{0}", listing.JobOpeningID) class="panel-collapse collapse ">
-                <div class="panel-body">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                Researched
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Cover Letter Written
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Applied
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Followed Up
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                Interview Scheduled
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="col-sm-4">
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target=@string.Format("#jobDescriptionModal{0}", listing.JobOpeningID)>View Description</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target=@string.Format("#coverLetterModal{0}", listing.JobOpeningID)>Write Cover Letter</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target=@string.Format("#applicationModal{0}", listing.JobOpeningID)>Record Application</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target=@string.Format("#followUpModal{0}", listing.JobOpeningID)>Record Follow Up</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target=@string.Format("#scheduleInterviewModal{0}", listing.JobOpeningID)>Schedule Interview</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="col-sm-4">
-                                @foreach (var person in ViewData["People"] as List<JobHuntingApp.Models.Person>)
-                                {
-                                    if (person.CompanyID == listing.CompanyID)
-                                    {
-                                        <div class="row">
-                                            <div class="col-xs-6">
-                                                @person.FirstName @person.LastName
-                                            </div>
-                                            <div class="col-xs-6">
-                                                @person.Phone
-                                            </div>
+
+            <div id="accordion" class="panel-group">
+                @foreach (JobHuntingApp.ViewModels.DashboardViewModel listing in Model)
+                {
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href=@string.Format("#collapse{0}", listing.JobOpeningID)>
+                                    @listing.JobOpeningTitle
+                                </a>
+                                | @listing.CompanyName | <span class="pull-right">Next Action | Record Contact</span>
+                            </h4>
+                        </div>
+                        <div id=@string.Format("collapse{0}", listing.JobOpeningID) class="panel-collapse collapse ">
+                            <div class="panel-body">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            Researched
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Cover Letter Written
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Applied
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Followed Up
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Interview Scheduled
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
-                                    }
+                                        <div class="col-sm-4">
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target=@string.Format("#jobDescriptionModal{0}", listing.JobOpeningID)>View Description</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target=@string.Format("#coverLetterModal{0}", listing.JobOpeningID)>Write Cover Letter</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target=@string.Format("#applicationModal{0}", listing.JobOpeningID)>Record Application</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target=@string.Format("#followUpModal{0}", listing.JobOpeningID)>Record Follow Up</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target=@string.Format("#scheduleInterviewModal{0}", listing.JobOpeningID)>Schedule Interview</button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <h3>People:</h3>
+                                            <div class="container-fluid">
+                                                @foreach (var person in ViewData["People"] as List<JobHuntingApp.Models.Person>)
+                                                {
+                                                    if (person.CompanyID == listing.CompanyID)
+                                                    {
+                                                        <div class="row">
+                                                            <div class="col-xs-3">
+                                                                @person.FirstName 
+                                                            </div>
 
-                                }
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <h3>Job Notes</h3>
-                                <p>@listing.JobOpeningNotes</p>
-                            </div>
-                            <div class="col-sm-4">
-                                <h3>Company Notes</h3>
-                                <p>@listing.CompanyNotes</p>
-                            </div>
-                            <div class="col-sm-4">
-                                <h3>Tasks?</h3>
-                                <p></p>
+                                                            <div class="col-xs-3">
+                                                                @person.LastName
+                                                            </div>
+                                                            <div class="col-xs-6">
+                                                                @person.Phone
+                                                            </div>
+                                                        </div>
+                                                    }
+
+                                                }
+                                            </div>                                            
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <h3>Job Notes</h3>
+                                            @Html.Raw(listing.JobOpeningNotes.ToString())
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <h3>Company Notes</h3>
+                                            <p>@listing.CompanyNotes</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
         <!-- Job description Modal -->
-        <div class="modal fade" id=@string.Format("jobDescriptionModal{0}", listing.JobOpeningID) role="dialog">
-            <div class="modal-dialog">
+                    <div class="modal fade" id=@string.Format("jobDescriptionModal{0}", listing.JobOpeningID) role="dialog">
+                        <div class="modal-dialog">
 
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">@listing.JobOpeningTitle</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>@listing.JobOpeningDescription</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">@listing.JobOpeningTitle</h4>
+                                </div>
+                                <div class="modal-body">
+                                    @Html.Raw(listing.JobOpeningDescription.ToString())
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
 
-            </div>
-        </div>
-        <div class="modal fade" id=@string.Format("coverLetterModal{0}", listing.JobOpeningID) role="dialog">
-            <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Cover Letter for @listing.JobOpeningTitle</h4>
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <input type="hidden" name=@string.Format("clJobID{0}", listing.JobOpeningID) id=@string.Format("clJobID{0}", listing.JobOpeningID) value="@listing.JobOpeningID" />
+                    <div class="modal fade" id=@string.Format("coverLetterModal{0}", listing.JobOpeningID) role="dialog">
+                        <div class="modal-dialog">
 
-                        @{  List<CoverLetter> coverLetterList = (List<CoverLetter>)ViewData["CoverLetters"]; }
-                        <textarea name="coverLetterTextInput" id="coverLetterTextInput" class="form-control" style="min-width: 100%; min-height: 400px">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Cover Letter for @listing.JobOpeningTitle</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="hidden" name=@string.Format("clJobID{0}", listing.JobOpeningID) id=@string.Format("clJobID{0}", listing.JobOpeningID) value="@listing.JobOpeningID" />
+
+                                    @{  List<CoverLetter> coverLetterList = (List<CoverLetter>)ViewData["CoverLetters"]; }
+                                    <textarea name="coverLetterTextInput" id="coverLetterTextInput" class="form-control" style="min-width: 100%">
                             @if (coverLetterList.SingleOrDefault(x => x.JobID == listing.JobOpeningID) != null)
                             {
                                 @coverLetterList.SingleOrDefault(x => x.JobID == listing.JobOpeningID).CoverLetterText
                             }
                         </textarea>
 
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default cl-save" data-dismiss="modal">Save & Close</button>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default cl-save" data-dismiss="modal">Save & Close</button>
+        <!-- Modal for recording that an application has been submitted for the job opening.-->
+                    <div class="modal fade" id=@string.Format("applicationModal{0}", listing.JobOpeningID) role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Application for @listing.JobOpeningTitle</h4>
+                                </div>
+                                <div class="modal-body">
+                                    Sent in Cover Letter and Resume on:<br />
+                                    - Date Picker -<br />
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
-                </div>
+                    }
+
 
             </div>
+
         </div>
-    }
-    
- 
+        <div class="col-lg-2">
+            <h3>Tasks</h3>
+            <ul>
+                <li>One</li>
+                <li>Two</li>
+                <li>Three</li>
+            </ul>
+        </div>
+    </div>
 </div>

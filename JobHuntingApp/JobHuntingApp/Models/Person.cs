@@ -17,5 +17,7 @@ namespace JobHuntingApp.Models
         public string LinkedIn { get; set; }
         [MaxLength(5000)]
         public string Notes { get; set; }
+        [StringLength(450)]
+        public string UserID { get; set; }
     }
 }

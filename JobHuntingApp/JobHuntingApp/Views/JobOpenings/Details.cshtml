@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Details";
+    var companyInfo = (ViewData["companyInfo"] as List<JobHuntingApp.Models.Company>).SingleOrDefault(c => c.CompanyID == Model.CompanyID);
 }
 
 <h2>Details</h2>
@@ -11,10 +12,10 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.CompanyID)
+            Company
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.CompanyID)
+            @companyInfo.CompanyName;
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.JobOpeningTitle)

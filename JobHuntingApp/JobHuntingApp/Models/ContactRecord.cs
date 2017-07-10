@@ -24,5 +24,7 @@ namespace JobHuntingApp.Models
         public DateTime ContactRecordAdded { get; set; }
         public DateTime ContactRecordOccured { get; set; }
         public ContactType ContactType { get; set; }
+        [StringLength(450)]
+        public string UserID { get; set; }
     }
 }

@@ -17,7 +17,8 @@ namespace JobHuntingApp.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ApplicationMethod = table.Column<int>(nullable: false),
                     ApplicationSubmitted = table.Column<DateTime>(nullable: false),
-                    JobID = table.Column<int>(nullable: false)
+                    JobID = table.Column<int>(nullable: false),
+                    UserID = table.Column<string>(maxLength: 450, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -33,7 +34,8 @@ namespace JobHuntingApp.Migrations
                     CompanyActive = table.Column<bool>(nullable: false),
                     CompanyName = table.Column<string>(nullable: true),
                     CompanyNotes = table.Column<string>(maxLength: 5000, nullable: true),
-                    CompanyUrl = table.Column<string>(nullable: true)
+                    CompanyUrl = table.Column<string>(nullable: true),
+                    UserID = table.Column<string>(maxLength: 450, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -50,7 +52,8 @@ namespace JobHuntingApp.Migrations
                     ContactRecordAdded = table.Column<DateTime>(nullable: false),
                     ContactRecordNotes = table.Column<string>(maxLength: 5000, nullable: true),
                     ContactRecordOccured = table.Column<DateTime>(nullable: false),
-                    ContactType = table.Column<int>(nullable: false)
+                    ContactType = table.Column<int>(nullable: false),
+                    UserID = table.Column<string>(maxLength: 450, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -64,7 +67,8 @@ namespace JobHuntingApp.Migrations
                     CoverLetterID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CoverLetterText = table.Column<string>(maxLength: 5000, nullable: true),
-                    JobID = table.Column<int>(nullable: false)
+                    JobID = table.Column<int>(nullable: false),
+                    UserID = table.Column<string>(maxLength: 450, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -82,7 +86,8 @@ namespace JobHuntingApp.Migrations
                     HistoryItemDate = table.Column<DateTime>(nullable: false),
                     HistoryItemEvent = table.Column<string>(nullable: true),
                     HistoryItemText = table.Column<string>(nullable: true),
-                    JobID = table.Column<int>(nullable: false)
+                    JobID = table.Column<int>(nullable: false),
+                    UserID = table.Column<string>(maxLength: 450, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -98,7 +103,8 @@ namespace JobHuntingApp.Migrations
                     CompanyID = table.Column<int>(nullable: false),
                     IdeaCreated = table.Column<DateTime>(nullable: false),
                     IdeaModified = table.Column<DateTime>(nullable: false),
-                    IdeaNote = table.Column<string>(maxLength: 5000, nullable: true)
+                    IdeaNote = table.Column<string>(maxLength: 5000, nullable: true),
+                    UserID = table.Column<string>(maxLength: 450, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -117,7 +123,8 @@ namespace JobHuntingApp.Migrations
                     JobID = table.Column<int>(nullable: false),
                     Occurance = table.Column<DateTime>(nullable: false),
                     ThankYouEmail = table.Column<bool>(nullable: false),
-                    ThankYouNote = table.Column<bool>(nullable: false)
+                    ThankYouNote = table.Column<bool>(nullable: false),
+                    UserID = table.Column<string>(maxLength: 450, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -137,7 +144,8 @@ namespace JobHuntingApp.Migrations
                     JobOpeningRecorded = table.Column<DateTime>(nullable: false),
                     JobOpeningSource = table.Column<string>(nullable: true),
                     JobOpeningTitle = table.Column<string>(nullable: true),
-                    JobOpeningUrl = table.Column<string>(nullable: true)
+                    JobOpeningUrl = table.Column<string>(nullable: true),
+                    UserID = table.Column<string>(maxLength: 450, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -156,7 +164,8 @@ namespace JobHuntingApp.Migrations
                     LastName = table.Column<string>(nullable: true),
                     LinkedIn = table.Column<string>(nullable: true),
                     Notes = table.Column<string>(maxLength: 5000, nullable: true),
-                    Phone = table.Column<string>(nullable: true)
+                    Phone = table.Column<string>(nullable: true),
+                    UserID = table.Column<string>(maxLength: 450, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -172,7 +181,8 @@ namespace JobHuntingApp.Migrations
                     TaskCompleted = table.Column<DateTime>(nullable: false),
                     TaskCreated = table.Column<DateTime>(nullable: false),
                     TaskNotes = table.Column<string>(maxLength: 5000, nullable: true),
-                    TaskText = table.Column<string>(nullable: true)
+                    TaskText = table.Column<string>(nullable: true),
+                    UserID = table.Column<string>(maxLength: 450, nullable: true)
                 },
                 constraints: table =>
                 {

@@ -8,6 +8,10 @@
   <PropertyGroup>
     <UserSecretsId>aspnet-JobHuntingApp-54029e13-6695-418f-a5f5-2bc2ce8374b4</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\js\tinyMCE-Config.js" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />

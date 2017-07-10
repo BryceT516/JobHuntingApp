@@ -17,7 +17,9 @@ function CoverLetterNode(CoverLetterID, JobID, CoverLetterText) {
 
 $('.cl-save').bind('click', function (event) {
     var jobID = event.target.parentElement.previousElementSibling.firstElementChild.getAttribute('value');
-    var coverLetterText = $(event.target.parentElement.previousElementSibling.lastElementChild).val();
+    //var coverLetterText = $(event.target.parentElement.previousElementSibling.lastElementChild).html();
+    var coverLetterText = tinyMCE.editors[0].getContent();
+    console.log(coverLetterText);
 
     var sendingCoverLetter = new CoverLetterNode();
     sendingCoverLetter.JobID = jobID;
@@ -27,7 +29,7 @@ $('.cl-save').bind('click', function (event) {
         data: JSON.stringify(sendingCoverLetter),
         type: "post", contentType: "application/json",
         success: function (result) {
-            self.alertMessage("Coverletter given to server.");
+            console.log(result);
         }
     });
 });

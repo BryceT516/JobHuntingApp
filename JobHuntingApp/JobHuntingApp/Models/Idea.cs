@@ -14,5 +14,7 @@ namespace JobHuntingApp.Models
         public string IdeaNote { get; set; }
         public DateTime IdeaCreated { get; set; }
         public DateTime IdeaModified { get; set; }
+        [StringLength(450)]
+        public string UserID { get; set; }
     }
 }
