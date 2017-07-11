@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Dashboard";
     var PeopleList = ViewData["People"] as List<JobHuntingApp.Models.Person>;
+    var jobOpeningCounter = 0;
 }
 
 <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=bsb5d78ljlux801o8brxchv9rap7jinay2rp3fdmxhyqriq1"></script>
@@ -120,11 +121,18 @@
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <h3>Job Notes</h3>
-                                            @Html.Raw(listing.JobOpeningNotes.ToString())
+                                            @if (listing.JobOpeningNotes != null)
+                                            {
+                                                @Html.Raw(listing.JobOpeningNotes.ToString())
+                                            }
+                                            
                                         </div>
                                         <div class="col-sm-6">
                                             <h3>Company Notes</h3>
-                                            <p>@listing.CompanyNotes</p>
+                                            @if (listing.CompanyNotes != null)
+                                            {
+                                                @Html.Raw(listing.CompanyNotes.ToString())
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -162,7 +170,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <input type="hidden" name=@string.Format("clJobID{0}", listing.JobOpeningID) id=@string.Format("clJobID{0}", listing.JobOpeningID) value="@listing.JobOpeningID" />
-
+                                    <input type="hidden" name=@string.Format("jobListingCount{0}", jobOpeningCounter) id="@string.Format("jobListingCount{0}", jobOpeningCounter)" value="@jobOpeningCounter" />
                                     @{  List<CoverLetter> coverLetterList = (List<CoverLetter>)ViewData["CoverLetters"]; }
                                     <textarea name="coverLetterTextInput" id="coverLetterTextInput" class="form-control" style="min-width: 100%">
                             @if (coverLetterList.SingleOrDefault(x => x.JobID == listing.JobOpeningID) != null)
@@ -200,6 +208,7 @@
 
                         </div>
                     </div>
+                    jobOpeningCounter++;
                     }
 
 

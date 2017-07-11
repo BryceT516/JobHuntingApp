@@ -21,5 +21,6 @@ namespace JobHuntingApp.Models
         public ApplicationMethod ApplicationMethod { get; set; }
         [StringLength(450)]
         public string UserID { get; set; }
+        public int ResumeID { get; set; }
     }
 }

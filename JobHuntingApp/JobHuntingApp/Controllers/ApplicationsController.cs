@@ -58,8 +58,16 @@ namespace JobHuntingApp.Controllers
         }
 
         // GET: Applications/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var user = await GetCurrentUserAsync();
+            if (user == null)
+            {
+                return View("Error");
+            }
+
+            ViewData["resumeList"] = _context.Resumes.Where(r => r.UserID == user.Id).ToList();
+            ViewData["jobsList"] = _context.JobOpenings.Where(j => j.UserID == user.Id && j.JobOpeningActive == true).ToList();
             return View();
         }
 
@@ -68,7 +76,7 @@ namespace JobHuntingApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ApplicationID,JobID,ApplicationSubmitted,ApplicationMethod")] Application application)
+        public async Task<IActionResult> Create([Bind("ApplicationID,JobID,ApplicationSubmitted,ApplicationMethod, ResumeID")] Application application)
         {
             var user = await GetCurrentUserAsync();
             if (user == null)
@@ -89,12 +97,18 @@ namespace JobHuntingApp.Controllers
         // GET: Applications/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var user = await GetCurrentUserAsync();
+            if (user == null)
+            {
+                return View("Error");
+            }
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            var application = await _context.Applications.SingleOrDefaultAsync(m => m.ApplicationID == id);
+            var application = await _context.Applications.SingleOrDefaultAsync(m => m.ApplicationID == id && m.UserID==user.Id);
             if (application == null)
             {
                 return NotFound();
@@ -147,13 +161,19 @@ namespace JobHuntingApp.Controllers
         // GET: Applications/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            var user = await GetCurrentUserAsync();
+            if (user == null)
+            {
+                return View("Error");
+            }
+
             if (id == null)
             {
                 return NotFound();
             }
 
             var application = await _context.Applications
-                .SingleOrDefaultAsync(m => m.ApplicationID == id);
+                .SingleOrDefaultAsync(m => m.ApplicationID == id && m.UserID==user.Id);
             if (application == null)
             {
                 return NotFound();
@@ -167,7 +187,13 @@ namespace JobHuntingApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var application = await _context.Applications.SingleOrDefaultAsync(m => m.ApplicationID == id);
+            var user = await GetCurrentUserAsync();
+            if (user == null)
+            {
+                return View("Error");
+            }
+
+            var application = await _context.Applications.SingleOrDefaultAsync(m => m.ApplicationID == id && m.UserID==user.Id);
             _context.Applications.Remove(application);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");

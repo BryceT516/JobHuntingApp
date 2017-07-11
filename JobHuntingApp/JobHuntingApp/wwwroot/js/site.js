@@ -1,8 +1,20 @@
-﻿
+﻿////////////////  General tools  ////////////////////////
+// Date pickers
+$(function () {
+    $(".date-picker").datepicker();
+})
+    
+
+
+
+
+
+
+
 
 //  --------- CoverLetter in Modal on Home/Index page
 $(document).ready(function () {
-
+    
 
 });
 
@@ -17,8 +29,8 @@ function CoverLetterNode(CoverLetterID, JobID, CoverLetterText) {
 
 $('.cl-save').bind('click', function (event) {
     var jobID = event.target.parentElement.previousElementSibling.firstElementChild.getAttribute('value');
-    //var coverLetterText = $(event.target.parentElement.previousElementSibling.lastElementChild).html();
-    var coverLetterText = tinyMCE.editors[0].getContent();
+    var jobListingCount = event.target.parentElement.previousElementSibling.firstElementChild.nextElementSibling.getAttribute('value');
+    var coverLetterText = tinyMCE.editors[jobListingCount].getContent();
     console.log(coverLetterText);
 
     var sendingCoverLetter = new CoverLetterNode();
@@ -33,3 +45,8 @@ $('.cl-save').bind('click', function (event) {
         }
     });
 });
+
+
+
+////////////////// Applications ///////////
+

@@ -28,6 +28,8 @@ namespace JobHuntingApp.Migrations
 
                     b.Property<int>("JobID");
 
+                    b.Property<int>("ResumeID");
+
                     b.Property<string>("UserID")
                         .HasMaxLength(450);
 
@@ -125,28 +127,6 @@ namespace JobHuntingApp.Migrations
                     b.ToTable("HistoryItems");
                 });
 
-            modelBuilder.Entity("JobHuntingApp.Models.Idea", b =>
-                {
-                    b.Property<int>("IdeaID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("CompanyID");
-
-                    b.Property<DateTime>("IdeaCreated");
-
-                    b.Property<DateTime>("IdeaModified");
-
-                    b.Property<string>("IdeaNote")
-                        .HasMaxLength(5000);
-
-                    b.Property<string>("UserID")
-                        .HasMaxLength(450);
-
-                    b.HasKey("IdeaID");
-
-                    b.ToTable("Ideas");
-                });
-
             modelBuilder.Entity("JobHuntingApp.Models.Interview", b =>
                 {
                     b.Property<int>("InterviewID")
@@ -185,18 +165,24 @@ namespace JobHuntingApp.Migrations
                     b.Property<bool>("JobOpeningActive");
 
                     b.Property<string>("JobOpeningDescription")
-                        .HasMaxLength(5000);
+                        .HasMaxLength(8000);
 
                     b.Property<string>("JobOpeningNotes")
                         .HasMaxLength(5000);
 
                     b.Property<DateTime>("JobOpeningRecorded");
 
-                    b.Property<string>("JobOpeningSource");
+                    b.Property<string>("JobOpeningSource")
+                        .HasMaxLength(200);
 
-                    b.Property<string>("JobOpeningTitle");
+                    b.Property<string>("JobOpeningTitle")
+                        .HasMaxLength(200);
 
-                    b.Property<string>("JobOpeningUrl");
+                    b.Property<string>("JobOpeningUrl")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("Location")
+                        .HasMaxLength(200);
 
                     b.Property<string>("UserID")
                         .HasMaxLength(450);
@@ -204,6 +190,71 @@ namespace JobHuntingApp.Migrations
                     b.HasKey("JobOpeningID");
 
                     b.ToTable("JobOpenings");
+                });
+
+            modelBuilder.Entity("JobHuntingApp.Models.JobOpeningResult", b =>
+                {
+                    b.Property<int>("JobOpeningResultID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("JobID");
+
+                    b.Property<DateTime>("JobOpeningResultCreated");
+
+                    b.Property<string>("JobOpeningResultNote");
+
+                    b.Property<string>("UserID")
+                        .HasMaxLength(450);
+
+                    b.HasKey("JobOpeningResultID");
+
+                    b.ToTable("JobOpeningResults");
+                });
+
+            modelBuilder.Entity("JobHuntingApp.Models.Mentorship", b =>
+                {
+                    b.Property<int>("MentorshipID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("MenteeID")
+                        .HasMaxLength(450);
+
+                    b.Property<string>("MentorID")
+                        .HasMaxLength(450);
+
+                    b.Property<DateTime>("MentorshipEnd");
+
+                    b.Property<DateTime>("MentorshipStart");
+
+                    b.HasKey("MentorshipID");
+
+                    b.ToTable("Mentorships");
+                });
+
+            modelBuilder.Entity("JobHuntingApp.Models.MentorshipNote", b =>
+                {
+                    b.Property<int>("MentorshipNoteID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CompanyID");
+
+                    b.Property<int>("CoverLetterID");
+
+                    b.Property<int>("InterviewID");
+
+                    b.Property<int>("JobOpeningID");
+
+                    b.Property<string>("MenteeID")
+                        .HasMaxLength(450);
+
+                    b.Property<string>("MentorID")
+                        .HasMaxLength(450);
+
+                    b.Property<string>("MentorshipNoteText");
+
+                    b.HasKey("MentorshipNoteID");
+
+                    b.ToTable("MentorshipNotes");
                 });
 
             modelBuilder.Entity("JobHuntingApp.Models.Person", b =>
@@ -232,6 +283,23 @@ namespace JobHuntingApp.Migrations
                     b.HasKey("PersonID");
 
                     b.ToTable("People");
+                });
+
+            modelBuilder.Entity("JobHuntingApp.Models.Resume", b =>
+                {
+                    b.Property<int>("ResumeID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<byte>("ResumeFile");
+
+                    b.Property<string>("ResumeTitle");
+
+                    b.Property<string>("UserID")
+                        .HasMaxLength(450);
+
+                    b.HasKey("ResumeID");
+
+                    b.ToTable("Resumes");
                 });
 
             modelBuilder.Entity("JobHuntingApp.Models.TaskRecord", b =>
