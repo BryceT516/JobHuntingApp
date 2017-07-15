@@ -50,3 +50,32 @@ $('.cl-save').bind('click', function (event) {
 
 ////////////////// Applications ///////////
 
+function ApplicationNode(JobID, ApplicationSubmitted, ApplicationMethod, ApplicationResume) {
+    var self = this;    
+    self.JobID = JobID;
+    self.ApplicationSubmitted = ApplicationSubmitted;
+    self.ApplicationMethod = ApplicationMethod;
+    self.ApplicationResume = ApplicationResume;
+}
+
+
+
+$('.ap-save').bind('click', function (event) {
+    var jobID = event.target.previousElementSibling.getAttribute('value');
+    console.log(jobID);
+
+    var sendingApplicationRecord = new ApplicationNode();
+    sendingApplicationRecord.JobID = jobID;
+    sendingApplicationRecord.ApplicationSubmitted = $("#applicationSubmitted" + jobID).val();
+    console.log(sendingApplicationRecord.ApplicationSubmitted);
+    sendingApplicationRecord.ApplicationMethod = $("#applicationMethod" + jobID).val();
+    sendingApplicationRecord.ApplicationResume = $("#applicationResume" + jobID).val();
+
+    $.ajax("/api/ApplicationsAPI", {
+        data: JSON.stringify(sendingApplicationRecord),
+        type: "post", contentType: "application/json",
+        success: function (result) {
+            console.log(result);
+        }
+    });
+});

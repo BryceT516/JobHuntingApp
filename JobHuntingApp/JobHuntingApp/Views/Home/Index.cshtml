@@ -197,12 +197,46 @@
                                     <h4 class="modal-title">Application for @listing.JobOpeningTitle</h4>
                                 </div>
                                 <div class="modal-body">
-                                    Sent in Cover Letter and Resume on:<br />
-                                    - Date Picker -<br />
-
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            <div class="label">Applied on:</div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control date-picker" 
+                                                   id=@string.Format("applicationSubmitted{0}", listing.JobOpeningID) 
+                                                   name=@string.Format("applicationSubmitted{0}", listing.JobOpeningID)
+                                                   @if ((ViewData["Applications"] as List<Application>).Any(x => x.JobID == listing.JobOpeningID)) {
+                                                       @string.Format("value={0}", (ViewData["Applications"] as List<Application>).SingleOrDefault(x => x.JobID == listing.JobOpeningID).ApplicationSubmitted.ToShortDateString())
+                                                   } />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-2">
+                                            <div class="label">Applied via:</div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <select id=@string.Format("applicationMethod{0}", listing.JobOpeningID) name=@string.Format("applicationMethod{0}", listing.JobOpeningID) 
+                                                    asp-items="Html.GetEnumSelectList<ApplicationMethod>()" class="form-control">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    @if ((((List<Resume>)ViewData["Resumes"]) != null && ((List<Resume>)ViewData["Resumes"]).Count() > 0))
+                                    {
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <div class="label">Resume used:</div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <select asp-for=@string.Format("applicationResume{0}", listing.JobOpeningID) asp-items="@(new SelectList((List<JobHuntingApp.Models.Resume>)ViewData["resumeList"], "ResumeID", "ResumeTitle"))" class="form-control">
+                                                    <option selected="selected" value="0">Please Select</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    }
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <input type="hidden" name=@string.Format("apJobID{0}", listing.JobOpeningID) id=@string.Format("apJobID{0}", listing.JobOpeningID) value="@listing.JobOpeningID" />
+                                    <button type="button" class="btn btn-default ap-save" data-dismiss="modal">Save & Close</button>
                                 </div>
                             </div>
 
