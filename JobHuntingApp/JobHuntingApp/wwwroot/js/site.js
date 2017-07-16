@@ -2,7 +2,7 @@
 // Date pickers
 $(function () {
     $(".date-picker").datepicker();
-})
+});
     
 
 
@@ -50,8 +50,9 @@ $('.cl-save').bind('click', function (event) {
 
 ////////////////// Applications ///////////
 
-function ApplicationNode(JobID, ApplicationSubmitted, ApplicationMethod, ApplicationResume) {
-    var self = this;    
+function ApplicationNode(ApplicationID, JobID, ApplicationSubmitted, ApplicationMethod, ApplicationResume) {
+    var self = this;
+    self.applicationID = ApplicationID;
     self.JobID = JobID;
     self.ApplicationSubmitted = ApplicationSubmitted;
     self.ApplicationMethod = ApplicationMethod;
@@ -61,10 +62,13 @@ function ApplicationNode(JobID, ApplicationSubmitted, ApplicationMethod, Applica
 
 
 $('.ap-save').bind('click', function (event) {
-    var jobID = event.target.previousElementSibling.getAttribute('value');
+    var jobID = event.target.nextElementSibling.getAttribute('value');
+    var applicationID = event.target.nextElementSibling.nextElementSibling.getAttribute('value');
     console.log(jobID);
+    console.log(applicationID);
 
     var sendingApplicationRecord = new ApplicationNode();
+    sendingApplicationRecord.applicationID = applicationID;
     sendingApplicationRecord.JobID = jobID;
     sendingApplicationRecord.ApplicationSubmitted = $("#applicationSubmitted" + jobID).val();
     console.log(sendingApplicationRecord.ApplicationSubmitted);

@@ -1,42 +1,20 @@
-@model JobHuntingApp.Models.Resume
+@model JobHuntingApp.ViewModels.ResumesViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Upload Resume";
 }
 
-<h2>Create</h2>
+<h2>Upload Resume</h2>
 
-<form asp-action="Create">
-    <div class="form-horizontal">
-        <h4>Resume</h4>
-        <hr />
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group">
-            <label asp-for="UserID" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="UserID" class="form-control" />
-                <span asp-validation-for="UserID" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="ResumeTitle" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="ResumeTitle" class="form-control" />
-                <span asp-validation-for="ResumeTitle" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="ResumeFile" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="ResumeFile" class="form-control" />
-                <span asp-validation-for="ResumeFile" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
+<form method="post" enctype="multipart/form-data" action="/Resumes/Create">
+    <div>
+        <p>Resume Title</p>
+        <input type="text" name="resumeTitle" />
+        <p>Upload a PDF file:</p>
+        <input type="file" name="files" />
+    </div>
+    <div>
+        <input type="submit" value="Upload" />
     </div>
 </form>
 

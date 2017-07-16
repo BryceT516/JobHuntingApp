@@ -197,6 +197,9 @@
                                     <h4 class="modal-title">Application for @listing.JobOpeningTitle</h4>
                                 </div>
                                 <div class="modal-body">
+                                    @{ 
+                                        var currentApplication = (ViewData["Applications"] as List<Application>).SingleOrDefault(ap => ap.JobID == listing.JobOpeningID);
+                                    }
                                     <div class="row">
                                         <div class="col-sm-2">
                                             <div class="label">Applied on:</div>
@@ -205,8 +208,8 @@
                                             <input type="text" class="form-control date-picker" 
                                                    id=@string.Format("applicationSubmitted{0}", listing.JobOpeningID) 
                                                    name=@string.Format("applicationSubmitted{0}", listing.JobOpeningID)
-                                                   @if ((ViewData["Applications"] as List<Application>).Any(x => x.JobID == listing.JobOpeningID)) {
-                                                       @string.Format("value={0}", (ViewData["Applications"] as List<Application>).SingleOrDefault(x => x.JobID == listing.JobOpeningID).ApplicationSubmitted.ToShortDateString())
+                                                   @if (ViewData["Applications"] != null && (ViewData["Applications"] as List<Application>).Any(x => x.JobID == listing.JobOpeningID)) {
+                                                       @string.Format("value={0}", currentApplication.ApplicationSubmitted.ToShortDateString())
                                                    } />
                                         </div>
                                     </div>
@@ -215,8 +218,28 @@
                                             <div class="label">Applied via:</div>
                                         </div>
                                         <div class="col-sm-6">
-                                            <select id=@string.Format("applicationMethod{0}", listing.JobOpeningID) name=@string.Format("applicationMethod{0}", listing.JobOpeningID) 
-                                                    asp-items="Html.GetEnumSelectList<ApplicationMethod>()" class="form-control">
+                                            <select id=@string.Format("applicationMethod{0}", listing.JobOpeningID) name=@string.Format("applicationMethod{0}", listing.JobOpeningID) class="form-control">
+                                                @{ 
+                                                    foreach (ApplicationMethod enumValue in Enum.GetValues(typeof(ApplicationMethod)))
+                                                    {
+                                                        if(ViewData["Applications"] != null && (ViewData["Applications"] as List<Application>).Any(ap => ap.JobID == listing.JobOpeningID))
+                                                        {
+                                                            if(enumValue == currentApplication.ApplicationMethod)
+                                                            {
+                                                                <option value="@enumValue" selected="selected">@enumValue</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="@enumValue">@enumValue</option>
+                                                            }
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@enumValue">@enumValue</option>
+                                                        }
+                                                    }
+                                                }
                                             </select>
                                         </div>
                                     </div>
@@ -227,16 +250,47 @@
                                                 <div class="label">Resume used:</div>
                                             </div>
                                             <div class="col-sm-6">
-                                                <select asp-for=@string.Format("applicationResume{0}", listing.JobOpeningID) asp-items="@(new SelectList((List<JobHuntingApp.Models.Resume>)ViewData["resumeList"], "ResumeID", "ResumeTitle"))" class="form-control">
-                                                    <option selected="selected" value="0">Please Select</option>
+                                                <select id=@string.Format("applicationResume{0}", listing.JobOpeningID) name=@string.Format("applicationResume{0}", listing.JobOpeningID) class="form-control">
+                                                    <option value="0">Select Resume</option>
+                                                    @foreach (var item in ViewData["Resumes"] as List<Resume>)
+                                                    {
+                                                        if (ViewData["Applications"] != null && (ViewData["Applications"] as List<Application>).Any(ap => ap.JobID == listing.JobOpeningID))
+                                                        {
+                                                            if (item.ResumeID == currentApplication.ResumeID)
+                                                            {
+                                                                <option value="@item.ResumeID" selected="selected">@item.ResumeTitle</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="@item.ResumeID">@item.ResumeTitle</option>
+                                                            }
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@item.ResumeID">@item.ResumeTitle</option>
+                                                        }
+
+
+                                                    }
                                                 </select>
                                             </div>
                                         </div>
                                     }
                                 </div>
-                                <div class="modal-footer">
-                                    <input type="hidden" name=@string.Format("apJobID{0}", listing.JobOpeningID) id=@string.Format("apJobID{0}", listing.JobOpeningID) value="@listing.JobOpeningID" />
+                                <div class="modal-footer">                                    
                                     <button type="button" class="btn btn-default ap-save" data-dismiss="modal">Save & Close</button>
+                                    <input type="hidden" name=@string.Format("apJobID{0}", listing.JobOpeningID) id=@string.Format("apJobID{0}", listing.JobOpeningID) value="@listing.JobOpeningID" />
+                                    @if (currentApplication != null)
+                                    {
+                                        <input type="hidden" name=@string.Format("applicationID{0}", listing.JobOpeningID) id=@string.Format("applicationID{0}", listing.JobOpeningID) value="@currentApplication.ApplicationID" />
+                                    }
+                                    else
+                                    {
+                                        <input type="hidden" name=@string.Format("applicationID{0}", listing.JobOpeningID) id=@string.Format("applicationID{0}", listing.JobOpeningID) value="" />
+
+                                    }
+
                                 </div>
                             </div>
 
