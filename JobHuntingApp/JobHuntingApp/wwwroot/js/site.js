@@ -7,11 +7,6 @@ $(function () {
 
 
 
-
-
-
-
-
 //  --------- CoverLetter in Modal on Home/Index page
 $(document).ready(function () {
     
@@ -48,7 +43,7 @@ $('.cl-save').bind('click', function (event) {
 
 
 
-////////////////// Applications ///////////
+//  --------- Applications in Modal on Home/Index page
 
 function ApplicationNode(ApplicationID, JobID, ApplicationSubmitted, ApplicationMethod, ApplicationResume) {
     var self = this;
@@ -83,3 +78,42 @@ $('.ap-save').bind('click', function (event) {
         }
     });
 });
+
+//  --------- FollowUps in Modal on Home/Index page
+function FollowUpNode(FollowUpID, JobID, FollowUpOccured, FollowUpMethod, FollowUpNotes) {
+    var self = this;
+    self.FollowUpID = FollowUpID;
+    self.JobID = JobID;
+    self.FollowUpOccured = FollowUpOccured;
+    self.FollowUpMethod = FollowUpMethod;
+    self.FollowUpNotes = FollowUpNotes;
+}
+
+
+
+$('.followUp-save').bind('click', function (event) {
+    var jobID = event.target.nextElementSibling.getAttribute('value');
+    var followUpID = event.target.nextElementSibling.nextElementSibling.getAttribute('value');
+    console.log(jobID);
+    console.log(followUpID);
+    var textAreaCount = event.target.previousElementSibling.getAttribute('value');
+    var followUpNotesText = tinyMCE.editors[textAreaCount].getContent();
+
+    var sendingFollowUpRecord = new FollowUpNode();
+    sendingFollowUpRecord.FollowUpID = followUpID;
+    sendingFollowUpRecord.JobID = jobID;
+    sendingFollowUpRecord.FollowUpOccured = $("#followUpOccured" + jobID).val();
+    console.log(sendingFollowUpRecord.FollowUpOccured);
+    sendingFollowUpRecord.FollowUpMethod = $("#followUpMethod" + jobID).val();
+    sendingFollowUpRecord.FollowUpNotes = followUpNotesText;
+
+    $.ajax("/api/FollowUpsAPI", {
+        data: JSON.stringify(sendingFollowUpRecord),
+        type: "post", contentType: "application/json",
+        success: function (result) {
+            console.log(result);
+        }
+    });
+});
+
+

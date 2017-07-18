@@ -9,9 +9,10 @@ using JobHuntingApp.Models;
 namespace JobHuntingApp.Migrations
 {
     [DbContext(typeof(JobHuntContext))]
-    partial class JobHuntContextModelSnapshot : ModelSnapshot
+    [Migration("20170716160857_followups")]
+    partial class followups
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")

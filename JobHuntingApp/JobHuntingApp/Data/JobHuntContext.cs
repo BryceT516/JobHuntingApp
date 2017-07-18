@@ -27,7 +27,8 @@ namespace JobHuntingApp.Data
         public DbSet<Person> People { get; set; }
         public DbSet<Resume> Resumes { get; set; }
         public DbSet<TaskRecord> Tasks { get; set; }
-        
+        public DbSet<FollowUp> FollowUps { get; set; }
+
     }
     
 }

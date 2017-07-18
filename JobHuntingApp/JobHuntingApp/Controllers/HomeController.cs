@@ -60,6 +60,7 @@ namespace JobHuntingApp.Controllers
             ViewData["CoverLetters"] = _context.CoverLetters.Where(cl => cl.UserID == user.Id).ToList();
             ViewData["Applications"] = _context.Applications.Where(ap => ap.UserID == user.Id).ToList();
             ViewData["Resumes"] = _context.Resumes.Where(r => r.UserID == user.Id).ToList();
+            ViewData["FollowUps"] = _context.FollowUps.Where(f => f.UserID == user.Id).ToList();
 
             return View(JobOpeningsList);
         }
