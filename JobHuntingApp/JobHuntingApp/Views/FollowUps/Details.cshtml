@@ -1,0 +1,48 @@
+@model JobHuntingApp.Models.FollowUp
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>FollowUp</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.JobID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JobID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UserID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FollowUpMethod)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FollowUpMethod)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FollowUpNotes)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FollowUpNotes)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FollowUpOccured)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FollowUpOccured)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.FollowUpID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -80,10 +80,11 @@ $('.ap-save').bind('click', function (event) {
 });
 
 //  --------- FollowUps in Modal on Home/Index page
-function FollowUpNode(FollowUpID, JobID, FollowUpOccured, FollowUpMethod, FollowUpNotes) {
+function FollowUpNode(FollowUpID, UserID, JobID, FollowUpOccured, FollowUpMethod, FollowUpNotes) {
     var self = this;
     self.FollowUpID = FollowUpID;
     self.JobID = JobID;
+    self.UserID = UserID;
     self.FollowUpOccured = FollowUpOccured;
     self.FollowUpMethod = FollowUpMethod;
     self.FollowUpNotes = FollowUpNotes;
@@ -93,19 +94,19 @@ function FollowUpNode(FollowUpID, JobID, FollowUpOccured, FollowUpMethod, Follow
 
 $('.followUp-save').bind('click', function (event) {
     var jobID = event.target.nextElementSibling.getAttribute('value');
-    var followUpID = event.target.nextElementSibling.nextElementSibling.getAttribute('value');
-    console.log(jobID);
+    var followUpID = parseInt(event.target.nextElementSibling.nextElementSibling.getAttribute('value'));
+    console.log("Job ID: " + jobID);
     console.log(followUpID);
     var textAreaCount = event.target.previousElementSibling.getAttribute('value');
     var followUpNotesText = tinyMCE.editors[textAreaCount].getContent();
 
     var sendingFollowUpRecord = new FollowUpNode();
-    sendingFollowUpRecord.FollowUpID = followUpID;
+    sendingFollowUpRecord.FollowUpID = (followUpID == null)? 0: followUpID;
     sendingFollowUpRecord.JobID = jobID;
-    sendingFollowUpRecord.FollowUpOccured = $("#followUpOccured" + jobID).val();
-    console.log(sendingFollowUpRecord.FollowUpOccured);
+    sendingFollowUpRecord.FollowUpOccured = $("#followUpOccured" + jobID).val();    
     sendingFollowUpRecord.FollowUpMethod = $("#followUpMethod" + jobID).val();
     sendingFollowUpRecord.FollowUpNotes = followUpNotesText;
+    console.log(sendingFollowUpRecord);
 
     $.ajax("/api/FollowUpsAPI", {
         data: JSON.stringify(sendingFollowUpRecord),

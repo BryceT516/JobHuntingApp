@@ -1,0 +1,53 @@
+@model JobHuntingApp.Models.FollowUp
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>FollowUp</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <input type="hidden" asp-for="FollowUpID" />
+        <dt>
+            @Html.DisplayNameFor(model => model.JobID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JobID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UserID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FollowUpMethod)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FollowUpMethod)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FollowUpNotes)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FollowUpNotes)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FollowUpOccured)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FollowUpOccured)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </form>
+</div>

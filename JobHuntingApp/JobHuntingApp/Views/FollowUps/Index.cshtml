@@ -1,0 +1,59 @@
+@model IEnumerable<JobHuntingApp.Models.FollowUp>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.JobID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FollowUpMethod)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FollowUpNotes)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FollowUpOccured)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FollowUpMethod)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FollowUpNotes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FollowUpOccured)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.FollowUpID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.FollowUpID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.FollowUpID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

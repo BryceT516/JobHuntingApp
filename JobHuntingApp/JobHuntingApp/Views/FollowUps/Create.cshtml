@@ -1,0 +1,63 @@
+@model JobHuntingApp.Models.FollowUp
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<form asp-action="Create">
+    <div class="form-horizontal">
+        <h4>FollowUp</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="JobID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="JobID" class="form-control" />
+                <span asp-validation-for="JobID" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="UserID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="UserID" class="form-control" />
+                <span asp-validation-for="UserID" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="FollowUpMethod" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="FollowUpMethod" class="form-control"></select>
+                <span asp-validation-for="FollowUpMethod" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="FollowUpNotes" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="FollowUpNotes" class="form-control" />
+                <span asp-validation-for="FollowUpNotes" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="FollowUpOccured" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="FollowUpOccured" class="form-control" />
+                <span asp-validation-for="FollowUpOccured" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
